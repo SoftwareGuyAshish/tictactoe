@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Icon from "./components/Icon";
 import "bootstrap/dist/css/bootstrap.css";
 import { Card, CardBody, Container, Button, Col, Row } from "reactstrap";
@@ -11,6 +11,13 @@ const itemsArray = new Array(9).fill("empty");
 const App = () => {
   const [isCross, setIsCross] = useState(false);
   const [winMessage, setWinMessage] = useState("");
+  const [theme, setTheme] = useState("white");
+
+  const toggleTheme = () => {
+    setTheme(theme === "white" ? "black" : "white");
+  };
+
+  document.body.style.backgroundColor = `${theme}`;
 
   const reloadGame = () => {
     setIsCross(false);
@@ -98,12 +105,14 @@ const App = () => {
   };
 
   return (
-    <Container className="p-5">
+    <Container className="p-5" style={{ backgroundColor: `${theme}` }}>
       <ToastContainer position="bottom-right" />
 
       <Row>
         <Col md={6} className="offset-md-3">
-          <h1 className="banner py-3 mb-4 text-center">X Tic-Tac-Toe O</h1>
+          <h1 className="banner py-3 mb-4 text-center" onClick={toggleTheme}>
+            X Tic-Tac-Toe O
+          </h1>
         </Col>
         <Col md={6} className="offset-md-3">
           {winMessage ? (
